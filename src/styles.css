@@ -1,0 +1,179 @@
+.layout-inner {
+  min-height: calc(100vh - 90px);
+}
+
+.footer {
+  width: 100%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 7px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.signin-col {
+  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
+  width: 75%;
+  text-align: center;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.signup-col {
+  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
+  text-align: center;
+  margin: auto;
+  border-radius: 5px;
+}
+
+small.val-error-msg {
+  color: red;
+  position: relative;
+  float: right;
+  font-size: 12px;
+  margin-top: -15px;
+}
+
+.dashboard {
+  display: flex;
+  height: 100%;
+}
+
+.dash-left {
+  width: 15%;
+  margin-left: -15px;
+  min-height: calc(100vh - 90px);
+  box-shadow: 2px -4px 6px 1px rgb(0 0 0 / 25%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dash-right {
+  width: 85%;
+  padding: 20px;
+  padding-right: 0px;
+}
+
+.links {
+  margin-top: 25%;
+}
+
+ul.links-list {
+  list-style: none;
+  padding-left: 10px;
+}
+
+li.link a {
+  text-decoration: none;
+  color: rgba(185, 177, 177, 0.85);
+}
+
+li.link {
+  padding-bottom: 13px;
+}
+
+.user button.btn.btn-secondary.input-group-text {
+  width: 40%;
+  text-align: left;
+  padding: 15px;
+  padding-left: 25px;
+}
+
+.user button.btn.btn-outline-secondary.input-group-text {
+  width: 60%;
+  text-align: left;
+  padding: 15px;
+  padding-left: 25px;
+}
+
+.list-group-item.active.active-admin {
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.list-group-item.active.active-agent {
+  background-color: #32a16d;
+  border-color: #32a16d;
+}
+
+.list-group-item.active.active-customer {
+  background-color: #47acc0;
+  border-color: #47acc0;
+}
+
+.user-box small {
+  font-size: 11px;
+}
+
+.back-link {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.filters {
+  padding: 25px;
+  box-shadow: inset 0px 0px 5px 1px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+}
+
+.list-group-item.active.active-confirmed {
+  background-color: #32a16d;
+  border-color: #32a16d;
+}
+
+.list-group-item.active.active-new {
+  background-color: #47acc0;
+  border-color: #47acc0;
+}
+
+.list-group-item.active.active-rejected {
+  background-color: #b8424d;
+  border-color: #b8424d;
+}
+
+.loan-conf button.btn.btn-info.input-group-text {
+  width: 40%;
+  text-align: left;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.loan-conf button.btn.btn-outline-info.input-group-text {
+  width: 60%;
+  text-align: left;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.loan-conf button.btn.btn-info.input-group-text.diff,
+.loan-conf button.btn.btn-outline-info.input-group-text.diff {
+  width: 25%;
+  text-align: left;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.loan-conf .form-select.input-group-text {
+  background-color: white;
+  border-color: #0dcaf0;
+}
+
+/* .loan-conf .alert {
+  font-size: 13px;
+} */
+
+.left-am-reading,
+.left-em-reading {
+  position: relative;
+  float: left;
+  margin-top: -10px;
+  font-size: 11px;
+}
+
+.right-am-reading,
+.right-em-reading {
+  position: relative;
+  float: right;
+  margin-top: -10px;
+  font-size: 11px;
+}
