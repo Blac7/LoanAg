@@ -31,7 +31,7 @@ const DashLayout = ({children}) => {
                     <div className="dashboard">
                         <div className={`dash-left ${roleClass(role)}`}>
                             <div className="role mx-1 my-3">
-                                <h5 className="mb-3">Role: {displayRole()}</h5>
+                                <h5 className="mb-lg-3">Role: {displayRole()}</h5>
                             </div>
                             <div className="links">
                                 <ul className="links-list">

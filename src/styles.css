@@ -11,6 +11,18 @@
   font-size: 13px;
 }
 
+.log-box {
+  text-align: center;
+}
+
+.login_password {
+  text-align: left;
+  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
+  padding: 25px;
+  max-width: 60%;
+  margin: auto;
+}
+
 .signin-col {
   box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
   width: 75%;
@@ -176,4 +188,74 @@ li.link {
   float: right;
   margin-top: -10px;
   font-size: 11px;
+}
+
+@media (max-width: 500px) {
+  .p-5,
+  .p-4,
+  .p-3,
+  .m-5,
+  .m-4,
+  .m-3,
+  .mb-3,
+  .mb-4,
+  .mb-5,
+  .my-3,
+  .my-4,
+  .my-5,
+  .mx-3,
+  .mx-4,
+  .mx-5 {
+    padding: 10px !important;
+    margin: 10px !important;
+  }
+  .p-2,
+  .p-1,
+  .m-1,
+  .m-2 {
+    padding: 5px !important;
+    margin: 5px !important;
+  }
+  .w-50 {
+    width: 100% !important;
+  }
+
+  .login_password {
+    max-width: 90%;
+    padding: 20px !important;
+  }
+  .signin-col {
+    width: 90%;
+  }
+  .dashboard {
+    display: block;
+  }
+  .dash-left {
+    width: 100%;
+    margin-left: 0px;
+    min-height: 50px;
+  }
+  .dash-right {
+    width: 100%;
+    padding: 0px;
+    padding-right: 0px;
+  }
+  .links {
+    margin-top: 0%;
+    /* text-align: center; */
+  }
+  .user button.btn.btn-outline-secondary.input-group-text {
+    width: 60%;
+    text-align: left;
+    padding: 5px;
+    padding-left: 15px;
+    font-size: 14px;
+  }
+  .btn {
+    font-size: 14px;
+  }
+  .back-link {
+    float: none;
+    margin-bottom: 20px;
+  }
 }
