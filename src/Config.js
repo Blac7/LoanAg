@@ -1,3 +1,2 @@
-export const API = "http://localhost:5000" 
-// 
-// "https://loanag.herokuapp.com"
+export const API = "https://demo025.herokuapp.com"
+//"http://localhost:5000" 
