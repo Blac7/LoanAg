@@ -21,7 +21,7 @@ const Signin = () => {
         return (
             await axios.post(
                 url,  
-                JSON.stringify(values), {
+                JSON.stringify({email, password}), {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -62,31 +62,33 @@ const Signin = () => {
     }
 
     const redir = redirectTo => {
-        return redirectTo && (<Redirect to='/dash' />)
+        return redirectTo && (<Redirect to='/users' />)
     }
 
     return (
-        <form>
-            <h5 className="m-3 mb-5">Please SignIn to access your account</h5>
-            {showError(error)}
-            {redir(redirectTo)}
-            <div className="d-grid gap-2 mb-3">
-                <div className="form-floating mb-3">
-                    <input onChange={handleChange1('email')} type="email" className="form-control" id="floatingInput" value={email} placeholder="e@mail.com" />
-                    <label htmlFor="floatingInput">Email address</label>
+        <div className="signin-box">
+            <form className="signin-form">
+                <h5 className="sigin-form-title ">Please SignIn to access your account</h5>
+                {showError(error)}
+                {redir(redirectTo)}
+                <div className="d-grid gap-2 mb-3">
+                    <div className="form-floating mb-3">
+                        <input onChange={handleChange1('email')} type="email" className="form-control" id="floatingInput" value={email} placeholder="e@mail.com" />
+                        <label htmlFor="floatingInput">Email address</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input onChange={handleChange1('password')} type="password" className="form-control" id="floatingPassword" placeholder="Password"  value={password} />
+                        <label htmlFor="floatingPassword">Password</label>
+                    </div>
+                    <button onClick={(e) => onSubmit(e)} className="btn btn-primary mb-3">Sign In</button>
                 </div>
-                <div className="form-floating mb-3">
-                    <input onChange={handleChange1('password')} type="password" className="form-control" id="floatingPassword" placeholder="Password"  value={password} />
-                    <label htmlFor="floatingPassword">Password</label>
+                <div className="signup-redir">
+                    <p className="mb-3">Please <Link to="/signup">
+                    <button className="btn btn-outline-secondary">Sign Up</button>
+                    </Link> if you do not have an account.</p>
                 </div>
-                <button onClick={(e) => onSubmit(e)} className="btn btn-primary mb-3">Sign In</button>
-            </div>
-            <div className="signup-redir">
-                <p className="mb-3">Please <Link to="/signup">
-                   <button className="btn btn-outline-secondary">Sign Up</button>
-                </Link> if you do not have an account.</p>
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
 

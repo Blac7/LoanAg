@@ -1,261 +1,118 @@
-.layout-inner {
-  min-height: calc(100vh - 90px);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.footer {
+:root {
+  --black1: rgba(167, 167, 167, 0.5);
+}
+
+.signin-box {
   width: 100%;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.85);
-  padding: 7px;
-  text-align: center;
-  font-size: 13px;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.log-box {
-  text-align: center;
+.signin-form {
+  width: 30vw;
+  padding: 2rem;
+  margin: 5rem;
+  border: 1px solid var(--black1);
+  box-shadow: 0 0 10px 1px var(--black1);
+  border-radius: 2rem;
 }
 
-.login_password {
-  text-align: left;
-  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
-  padding: 25px;
-  max-width: 60%;
-  margin: auto;
+.sigin-form-title {
+  font-size: 1.25rem;
+  font-weight: 100;
+  margin-bottom: 2rem;
 }
 
-.signin-col {
-  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
-  width: 75%;
-  text-align: center;
-  margin: auto;
-  border-radius: 5px;
+.signup-box {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .signup-col {
-  box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 25%);
-  text-align: center;
-  margin: auto;
-  border-radius: 5px;
+  width: 50vw;
+  padding: 2rem;
+  margin: 5rem;
+  border: 1px solid var(--black1);
+  box-shadow: 0 0 10px 1px var(--black1);
+  border-radius: 2rem;
 }
 
-small.val-error-msg {
-  color: red;
-  position: relative;
-  float: right;
-  font-size: 12px;
-  margin-top: -15px;
+.signup-form {
+  margin-top: 2rem;
 }
 
-.dashboard {
+.sigup-form-title {
+  font-size: 1.25rem;
+  font-weight: 100;
+  margin-bottom: 2rem;
+}
+
+.msg-box.p-3 {
   display: flex;
-  height: 100%;
+  justify-content: flex-end;
+  align-items: baseline;
 }
 
-.dash-left {
-  width: 15%;
-  margin-left: -15px;
-  min-height: calc(100vh - 90px);
-  box-shadow: 2px -4px 6px 1px rgb(0 0 0 / 25%);
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+.users {
+  margin: 2rem;
 }
 
-.dash-right {
-  width: 85%;
-  padding: 20px;
-  padding-right: 0px;
+.signout-btn {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.links {
-  margin-top: 25%;
+.users-box {
+  margin: 2rem;
+  padding: 2rem 1rem;
+  border: 1px solid var(--black1);
+  border-radius: 2rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
 }
 
-ul.links-list {
-  list-style: none;
-  padding-left: 10px;
+.user-inv {
+  padding: 2rem;
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start; */
+  border: 1px solid var(--black1);
+  border-radius: 1rem;
+  margin: 1rem 2rem;
+  text-align: right;
 }
 
-li.link a {
-  text-decoration: none;
-  color: rgba(185, 177, 177, 0.85);
+p.name {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
-li.link {
-  padding-bottom: 13px;
+p.address {
+  font-weight: 100;
+  word-break: break-all;
 }
 
-.user button.btn.btn-secondary.input-group-text {
-  width: 40%;
-  text-align: left;
-  padding: 15px;
-  padding-left: 25px;
-}
-
-.user button.btn.btn-outline-secondary.input-group-text {
-  width: 60%;
-  text-align: left;
-  padding: 15px;
-  padding-left: 25px;
-}
-
-.list-group-item.active.active-admin {
-  background-color: #212529;
-  border-color: #212529;
-}
-
-.list-group-item.active.active-agent {
-  background-color: #32a16d;
-  border-color: #32a16d;
-}
-
-.list-group-item.active.active-customer {
-  background-color: #47acc0;
-  border-color: #47acc0;
-}
-
-.user-box small {
-  font-size: 11px;
-}
-
-.back-link {
-  float: right;
-  margin-bottom: 20px;
-}
-
-.filters {
-  padding: 25px;
-  box-shadow: inset 0px 0px 5px 1px rgb(0 0 0 / 25%);
-  border-radius: 10px;
-}
-
-.list-group-item.active.active-confirmed {
-  background-color: #32a16d;
-  border-color: #32a16d;
-}
-
-.list-group-item.active.active-new {
-  background-color: #47acc0;
-  border-color: #47acc0;
-}
-
-.list-group-item.active.active-rejected {
-  background-color: #b8424d;
-  border-color: #b8424d;
-}
-
-.loan-conf button.btn.btn-info.input-group-text {
-  width: 40%;
-  text-align: left;
-  padding: 10px;
-  padding-left: 20px;
-}
-
-.loan-conf button.btn.btn-outline-info.input-group-text {
-  width: 60%;
-  text-align: left;
-  padding: 10px;
-  padding-left: 20px;
-}
-
-.loan-conf button.btn.btn-info.input-group-text.diff,
-.loan-conf button.btn.btn-outline-info.input-group-text.diff {
-  width: 25%;
-  text-align: left;
-  padding: 10px;
-  padding-left: 20px;
-}
-
-.loan-conf .form-select.input-group-text {
-  background-color: white;
-  border-color: #0dcaf0;
-}
-
-/* .loan-conf .alert {
-  font-size: 13px;
-} */
-
-.left-am-reading,
-.left-em-reading {
-  position: relative;
+span.head {
+  display: inline-block;
+  margin-right: 1rem;
   float: left;
-  margin-top: -10px;
-  font-size: 11px;
-}
-
-.right-am-reading,
-.right-em-reading {
-  position: relative;
-  float: right;
-  margin-top: -10px;
-  font-size: 11px;
-}
-
-@media (max-width: 500px) {
-  .p-5,
-  .p-4,
-  .p-3,
-  .m-5,
-  .m-4,
-  .m-3,
-  .mb-3,
-  .mb-4,
-  .mb-5,
-  .my-3,
-  .my-4,
-  .my-5,
-  .mx-3,
-  .mx-4,
-  .mx-5 {
-    padding: 10px !important;
-    margin: 10px !important;
-  }
-  .p-2,
-  .p-1,
-  .m-1,
-  .m-2 {
-    padding: 5px !important;
-    margin: 5px !important;
-  }
-  .w-50 {
-    width: 100% !important;
-  }
-
-  .login_password {
-    max-width: 90%;
-    padding: 20px !important;
-  }
-  .signin-col {
-    width: 90%;
-  }
-  .dashboard {
-    display: block;
-  }
-  .dash-left {
-    width: 100%;
-    margin-left: 0px;
-    min-height: 50px;
-  }
-  .dash-right {
-    width: 100%;
-    padding: 0px;
-    padding-right: 0px;
-  }
-  .links {
-    margin-top: 0%;
-    /* text-align: center; */
-  }
-  .user button.btn.btn-outline-secondary.input-group-text {
-    width: 60%;
-    text-align: left;
-    padding: 5px;
-    padding-left: 15px;
-    font-size: 14px;
-  }
-  .btn {
-    font-size: 14px;
-  }
-  .back-link {
-    float: none;
-    margin-bottom: 20px;
-  }
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.7;
 }

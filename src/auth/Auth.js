@@ -1,5 +1,5 @@
-// import axios from 'axios'
-// import { API } from '../Config'
+import axios from 'axios'
+import { API } from '../Config'
 
 export const authenticate = (data, next) => {
     if(data){
@@ -22,10 +22,11 @@ export const isAuthenticated = () => {
     }
 }
 
-export const signout = () => {
-    if (typeof window != undefined) {
-        if (localStorage.getItem('jwt')) {
-            localStorage.removeItem('jwt')
-        }
+export const signout = async () => {
+    if(typeof window !== 'undefined') {
+        localStorage.removeItem('jwt')
+        await axios.get(`${API}/signout`)
+        .then(res => console.log("Signout: " + res))
+        .catch(err => console.log(err))
     }
 }

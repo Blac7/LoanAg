@@ -1,185 +1,178 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
-import moment from 'moment'
 
-import DashLayout from './DashLayout'
+import { isAuthenticated, signout } from '../auth/Auth'
 import { API } from '../Config'
-import { isAuthenticated } from '../auth/Auth'
 
 const Users = () => {
-    const [users, setUsers] = useState()
-    const [searchSel, setSearchSel] = useState()
-    const [searchInp, setSearchInp] = useState()
-    const [fil, setFil] = useState(false)
-    // const userId = isAuthenticated().user._id
-    const role  = isAuthenticated().user.role
+    const [allUsers, setAllUsers] = useState()
+    const [user, setUser] = useState()
+    const [tempUser, setTempUser] = useState({
+        name: "",
+        email: "",
+        password: "",
+        address: ""
+    })
+    const token = isAuthenticated().token
+    const data = isAuthenticated().user
+    const [success, setSucess] = useState(false)
+    
+    const { name, email, password, address } = tempUser
+
+    const handleChange = name => event => {
+        setTempUser({...tempUser, [name]: event.target.value})
+    }
+
+    const getUsers = async () => {
+        const url = `${API}/users/${data._id}`
+        await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => setAllUsers(res.data))
+        .catch(err => console.log(err))
+    }
+
+    const getTempUser = async (id) => {
+        const url = `${API}/user/${id}/${data._id}`
+        await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }
+        )
+        .then(res => {
+            setUser(res.data)
+            setTempData(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const editUser = async (id) => {
+        const url = `${API}/user/edit/${id}/${data._id}`
+        await axios.put(url, JSON.stringify(tempUser), {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }
+        )
+        .then(res => setSucess(true))
+        .catch(err => console.log(err))
+    }
+
+    const deleteUser = async (id) => {
+        const url = `${API}/user/delete/${id}/${data._id}`
+        await axios.delete(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }
+        )
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
+    const setTempData = (data) => {
+        if(data) {
+            setTempUser({...tempUser, 'name':data.name, 'email':data.email, 'address':data.address})
+        }
+    }
+
+    const onSubmit = id => {
+        // console.log(id)
+        editUser(id)
+    }
+
+    const ClickDelete = id => {
+        //event.preventDefault()
+        deleteUser(id)
+    }
+
+    const showSuccess = () => {
+        return success && (
+            <p className='alert alert-success'> {name} Details Changed.</p>
+        )
+    }
 
     useEffect(() => {
-        if(role === 0) {
-            getAllUsers()
-        }
-        else if (role === 1) {
-            getAllUsersCustomer()
-        }
-        else {
-            getAllUsersAgent()
-        }
-    }, [role])
+        getUsers()
+    }, [allUsers, user, tempUser, data])
 
-    const getAllUsers = async () => {
-        const url = `${API}/user/allUsers`
-        await axios.get(url)
-                    .then(users => setUsers(users.data))
-                    .catch(() => console.log("Error get all users"))
-    }  
-    
-    const getAllUsersAgent = async () => {
-        const url = `${API}/user/allAgents`
-        await axios.get(url)
-                    .then(users => setUsers(users.data))
-                    .catch(() => console.log("Error get all users"))
-    } 
-
-    const getAllUsersCustomer = async () => {
-        const url = `${API}/user/allCustomers`
-        await axios.get(url)
-                    .then(users => setUsers(users.data))
-                    .catch(() => console.log("Error get all users"))
-    } 
-
-    const displayHeading = () => {
-        if (role === 0) return "All Users"
-        else if (role === 1) return "Users" 
-        else return "Agents"
-    }
-
-    const displayRole = (rol) => {
-        if (rol === 0) return "Admin"
-        else if (rol === 1) return "Agent" 
-        else return "Customer"
-    }
-
-    const roleClass = (rol) => {
-        if (rol === 0) return "active-admin"
-        else if (rol === 1) return "active-agent" 
-        else return "active-customer"
-    }
-
-    const showUserData = () => {
-        return users && users.map((user, i) => (
-            <div key={i} className="user-box col-md-4">
-                <ul className="list-group mb-4">
-                    <li className={`list-group-item list-group-item-action active ${roleClass(user.role)}`} aria-current="true">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-1">Id: {user._id}</h6>
-                            <small>{moment(user.createdAt).fromNow()}</small>
-                        </div>
-                    </li>
-                    <li className="list-group-item list-group-item-action">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-0 mt-1">Name</h6>
-                            <p className="mb-0 mt-1">{user.firstName} {user.lastName}</p>
-                        </div>
-                    </li>
-                    <li className="list-group-item list-group-item-action">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-0 mt-1">Role</h6>
-                            <p className="mb-0 mt-1">{displayRole(user.role)}</p>
-                        </div>
-                    </li>
-                    <li className="list-group-item list-group-item-action">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-0 mt-1">E-mail</h6>
-                            <p className="mb-0 mt-1">{user.email}</p>
-                        </div>
-                    </li>
-                    <li className="list-group-item list-group-item-action">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-0 mt-1">Age</h6>
-                            <p className="mb-0 mt-1">{user.age}</p>
-                        </div>
-                    </li>
-                    <li className="list-group-item list-group-item-action">
-                        <div className="d-flex w-100 justify-content-between">
-                            <h6 className="mb-0 mt-1">Phone Number</h6>
-                            <p className="mb-0 mt-1">{user.phoneNumber}</p>
-                        </div>
-                    </li>
-                </ul>
+    const showUsers = () => {
+        return allUsers && allUsers.map((val, i) => (
+            <div className="user-inv" key={i}>
+                <p className="name"><span className="head">Name</span>{val.name}</p>
+                <p className="email"><span className="head">Email</span>{val.email}</p>
+                <p className="address"><span className="head">Address</span>{val.address}</p>
+                {/* <p className="created-at">{val.createdAt}</p> */}
+                <div className="manage-btn">
+                    <button className="btn btn-outline-primary mx-2" onClick={() => getTempUser(val._id)} data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+                    {showDelete(val._id)}
+                </div>
             </div>
         ))
     }
 
-    const handleSelect = event => {
-        setSearchSel(event.target.value)
+    const showDelete = (id) => {
+        if(id !== data._id) {
+            return <Link className="btn btn-outline-danger mx-2"  to='/users' onClick={() => ClickDelete(id)}>Delete</Link>
+        }
     }
 
-    const handleInput = event => {
-        setSearchInp(event.target.value)
-    }
-
-    const getFilteredUsers = async () => {
-      const url = `${API}/user/filtered?name=${searchSel}&value=${searchInp}`
-        await axios.get(url)
-                    .then(users => setUsers(users.data))
-                    .catch(() => console.log("Error get all users"))
-    } 
-
-    const onSubSearch = event => {
-        event.preventDefault()
-        getFilteredUsers()
-        setFil(true)
-    }
-
-    const onSubAll = event => {
-        event.preventDefault()
-        if(role === 0) {
-            getAllUsers()
-        }
-        else if (role === 1) {
-            getAllUsersCustomer()
-        }
-        else {
-            getAllUsersAgent()
-        }
-        setFil(false)
+    const hideSuccess = () => {
+        setSucess(false)
     }
 
     return (
-        <div>
-           <DashLayout>
-               <div className="p-3">
-                   <div className="users">
-                       <h4 className="mb-3 mt-3">
-                           {displayHeading()}
-                           { fil ? (
-                            <button onClick={(e) => onSubAll(e)} className="btn btn-outline-primary mx-3">Get all Users</button>
-                           ) : "" }
-                            <Link to='/dash' className="back-link">
-                                <button className="btn btn-outline-info">&lt; Back</button>
-                            </Link>   
-                        </h4>
-                        <div className="search-box w-50 my-4">
-                            <div className="input-group mb-3">
-                                <select onChange={(e) => handleSelect(e)} className="form-select" id="inputGroupSelect02">
-                                    <option value="">Select Field</option>
-                                    <option value="firstName">First Name</option>
-                                    <option value="lastName">Last Name</option>
-                                    <option value="_id">ID</option>
-                                    <option value="email">E-mail</option>
-                                    <option value="phoneNumber">Phone Number</option>
-                                </select>
-                                <input onChange={(e) => handleInput(e)} type="text" className="form-control" placeholder="" />
-                                <button onClick={(e) => onSubSearch(e)} className="btn btn-outline-primary">Search</button>
+        <div className="users">
+            <div className="signout-btn mb-3">
+                <Link className="btn btn-secondary" onClick={() => signout()} to='/'>Sign Out</Link>
+            </div>
+            <div className="users-box">
+                {showUsers()}
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Edit Details of Id: { user && ( user._id )}</h5>
+                                <button onClick={() => hideSuccess()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body p-5">
+                                { tempUser && ( 
+                                    <form className="signup-form-edit">
+                                        {showSuccess()}
+                                        <div className="form-floating mb-3">
+                                            <input type="text" onChange={handleChange("name")} className="form-control" id="floatingText" placeholder="Abcd Efg" value={name} />
+                                            <label htmlFor="floatingText">User Name</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={email} disabled />
+                                            <label htmlFor="floatingInput">Email address</label>
+                                        </div>
+                                        <div className="form-floating mb-3">
+                                            <textarea onChange={handleChange("address")} className="form-control" id="floatingAddress" placeholder="Please Enter Address" value={address} />
+                                            <label htmlFor="floatingAddress">Address</label>
+                                        </div>
+                                        <div className="d-grid gap-2 mb-3">
+                                            <button className="btn btn-secondary" type="button" onClick={() => onSubmit(user._id)}>Edit Details</button>
+                                        </div>
+                                    </form>
+                                ) }
                             </div>
                         </div>
-                       <div className="row">
-                            {showUserData()}
-                       </div>
-                   </div>
-               </div>
-           </DashLayout>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
